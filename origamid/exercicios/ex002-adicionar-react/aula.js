@@ -2,6 +2,8 @@
 
 //o que é react? React é uma biblioteca JavaScript para criar interfaces de usuário, baseada em componentes reutilizáveis, que usa uma Virtual DOM para atualizações eficientes.
 
+//o que é jsx? JSX (JavaScript XML) é uma extensão de sintaxe para JavaScript que permite escrever código que se parece com HTML dentro do JavaScript.
+
 //Recomendado apenas para rápidos testes e prototipagem, você pode iniciar a desenvolver com React colocando no head do HTML os links abaixo (script).
 
 //https://react.dev/learn/installation

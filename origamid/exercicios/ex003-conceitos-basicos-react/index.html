@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adicionar react</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+
+    <script type="text/babel">
+
+        //pode usar funciton normal
+        function Button(params) {
+            return <button>Comprar</button>
+        }
+
+        //ou arrow funciton
+        const MainNav = () => {
+            return <nav>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                </ul>
+            </nav>
+        }
+        //-----------------------------------------------------------------------------------------
+        //utilizadno {} para elementos JS
+        const Produtos = () => {
+            const produto1 = "camisa";
+            const produto2 = "bermuda";
+
+            return <div>
+                <button onClick={handleClick}>{produto1} - R$ {(Math.random() * 100).toFixed(2)}</button>
+                <button onClick={handleClick}>{produto2} - R$ {(Math.random() * 100).toFixed(2)}</button>
+            </div>
+        };
+
+        function handleClick(e) {
+            console.log('clicou', e)
+        }
+        //-----------------------------------------------------------------------------------------
+        // hook
+        const Comprar = () => {
+            const [count, setCount] = React.useState(5);//se quiser atualizar esse valor (5) para 10, tem que usar a função, setCount
+
+
+            function handleClickCount() {
+                setCount(10); //atualizando o valor pra 10
+                //como se fosse [count, setCount][0] = 10, só que  [count, setCount] está desestruturado, antes seria const contar = React.useState(5), logo, contar[0] = 10, mas se fizer assim ele não sincroniza porque não é assim que o react funciona
+            }
+
+            return (
+                <div>
+                    <button onClick={handleClickCount}>Comprar: {count}</button>
+                    <p>Total: {count}</p>
+                    <p>Preço: {count * 100}</p>
+                </div>
+            );
+        };
+
+
+
+        //-----------------------------------------------------------------------------------------
+        const App = () => {
+            return <div>
+                <h1>Teste</h1>
+                <MainNav />
+                <Button />
+                <Produtos />
+                <Comprar />
+            </div>;
+        }
+
+
+        const container = document.getElementById('root')
+        const root = ReactDOM.createRoot(container)
+        root.render(<App />)
+    </script>
+</body>
+
+</html>
