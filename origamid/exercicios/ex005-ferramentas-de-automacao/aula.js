@@ -71,4 +71,4 @@
 
 //isso tudo é uma demonstração do que acontece e por isso fizemos à mão, porém vamos utilizar uma ferramenta que já cria tudo de uma vez, porque se for fazer tudo na mão pode esquecer de alguma funcionalidade e é mais trabalhoso, por exemplo, se nao add o script de reload, toda vez que alterar algo no codigo tem que ir na pagina e dar refresh, e com essa ferramenta já importamos tudo e economizamos tempo. Reload foi só um exemplo mas existem muitas outras funcionaliades que são criadas automaticamente, como pasta de imagens, comilação de eslint...
 
-//ver aula006, usamos essa ferramenta chma-se VITE
+//ver aula006, usamos essa ferramenta chma-se VITE. Ele é quem cria esse ambiente de desenvolvimento já configurado e otimizado para a criação de aplicativos com React.
