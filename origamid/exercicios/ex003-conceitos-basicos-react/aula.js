@@ -92,7 +92,7 @@ function handleClick(event) {
 }
 //-----------------------------------------------------------------------------------------
 
-// - Hooks
+// - Hooks (como se fossem os métodos do JS)
 //Utilizamos o React pela facilidade de sincronização do estado. Os Hooks são funções especiais de React, o useState possibilita a sincronização do estado.
 
 const Compras = () => {
