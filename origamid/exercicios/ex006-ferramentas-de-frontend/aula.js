@@ -97,3 +97,5 @@
 //       'react/jsx-key': 'off',
 //     },
 //   };
+
+//a partir daqui vou criar um repositorio onde vou ir criando o projeto final e vou documentando tudo neste repositorio, o repositorio final é: dogs
