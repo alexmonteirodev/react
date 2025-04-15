@@ -178,7 +178,64 @@ const mario = {
 };
 
 const App = () => {
-  const dados = luana;
+  const dados = mario;
 
-  return <div></div>;
+  const styleAtivo = {
+    color: "green",
+  };
+  const styleInativo = {
+    color: "red",
+  };
+
+  const totalGasto = (dados) => {
+    const dadosCompras = dados.compras;
+    let valorFinal = 0;
+    dadosCompras.forEach((params) => {
+      const valores = +params.preco.replace("R$", "");
+      valorFinal = valorFinal + valores;
+    });
+    return valorFinal;
+  };
+
+  return (
+    <>
+      <p>Nome: {dados.cliente}</p>
+      <p>Idade: {dados.idade}</p>
+      <p>
+        Situação:
+        {dados.ativa ? (
+          <span style={styleAtivo}> Ativo</span>
+        ) : (
+          <span style={styleInativo}> Inativo</span>
+        )}
+      </p>
+      <p>Total gasto: R$ {totalGasto(dados)}</p>
+      <p>{totalGasto(dados) > 10000 ? "Você está gastando muito." : ""}</p>
+    </>
+  );
+};
+
+// solução professor:
+
+const App2 = () => {
+  const dados = mario;
+
+  const total = dados.compras
+    .map((item) => Number(item.preco.replace("R$ ", "")))
+    .reduce((a, b) => a + b);
+
+  return (
+    <div>
+      <p>Nome: {dados.cliente}</p>
+      <p>Idade: {dados.idade}</p>
+      <p>
+        Situação:{" "}
+        <span style={{ color: dados.ativa ? "green" : "red" }}>
+          {dados.ativa ? "Ativa" : "Inativa"}
+        </span>
+      </p>
+      <p>Total: R$ {total}</p>
+      {total > 10000 && <p>Você está gastando muito</p>}
+    </div>
+  );
 };
