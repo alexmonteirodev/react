@@ -177,7 +177,7 @@ const mario = {
   ativa: false,
 };
 
-const App = () => {
+const App11 = () => {
   const dados = mario;
 
   const styleAtivo = {
@@ -217,7 +217,7 @@ const App = () => {
 
 // solução professor:
 
-const App2 = () => {
+const App12 = () => {
   const dados = mario;
 
   const total = dados.compras
