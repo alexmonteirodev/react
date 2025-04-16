@@ -1,5 +1,4 @@
 import React from "react";
-import Home from "./home";
 const { pathname } = window.location;
 console.log(pathname);
 
