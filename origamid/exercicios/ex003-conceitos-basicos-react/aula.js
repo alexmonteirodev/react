@@ -14,7 +14,7 @@ function App() {
 
 // - Componentes
 //Permitem você dividir a sua interface em pequenos elementos. São criados através de funções que retornam elementos React.
-//depois é só ir acrescentando os componentes ao appp (olhar index.html)
+//depois é só ir acrescentando os componentes ao app (olhar index.html)
 //obs: é considerado boa prática dar nome a um compotente com a primeira letra em maiúscula
 
 // Function Component
