@@ -141,3 +141,153 @@ const ButtonModal = ({ setModal }) => {
   return <button onClick={() => setModal(true)}>Abrir Modal</button>;
 };
 //-----------------------------------------------------------------------------
+
+// - Reatividade
+// Não modifique o estado diretamente. Utilize sempre a função de atualização do estado, pois ela que garante a reatividade dos componentes.
+const App5 = () => {
+  const [items, setItems] = React.useState(["Item 1", "Item 2"]);
+
+  function handleClick() {
+    // Errado. Modifique o estado apenas com a função de atualização (setItems)
+    items.push("Novo Item");
+  }
+  //é errado porque vai alterar a array e vai adicionar o novo item mas ela não vai renderizar e mostrar a mudança na tela.
+
+  function handleClickReativo() {
+    // Correto. Eu desestruturo a array atual, criando uma nova e adiciono um novo elemento
+    setItems([...items, "Novo Item"]);
+  }
+  //usando de forma reativa, ou seja, com a função (segundo parametro) que muda o estado do useState, aí sim, vai alterar a array e renderizar a tela com a array atualizada.
+  return (
+    <>
+      {items.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+      <button onClick={handleClick}>Adicionar Item</button>
+      <button onClick={handleClickReativo}>Adicionar Reativo</button>
+    </>
+  );
+};
+
+// exemplo 2 (criado por mim):
+
+const App6 = () => {
+  const listaFrutas = ["banana", "uva"];
+  const [frutas, setFrutas] = React.useState(listaFrutas);
+
+  function handleClick() {
+    setFrutas([...frutas, "maçã"]);
+  }
+  console.log(frutas);
+
+  return (
+    <>
+      <div>Testando uso de reatividade</div>
+      <button onClick={handleClick}>atualiza</button>
+      <div>
+        {frutas.map((fruta) => {
+          return <div key={fruta}>{fruta}</div>;
+        })}
+      </div>
+    </>
+  );
+};
+//-----------------------------------------------------------------------------
+
+// - Callback
+// Podemos passar uma função de callback para atualizar o estado. A função de callback recebe um parâmetro que representa o valor anterior e irá modificar o estado para o valor que for retonado na função.
+
+const App7 = () => {
+  const [ativo, setAtivo] = React.useState(true);
+
+  function handleClick() {
+    // usando um callback
+    setAtivo((anterior) => !anterior); // anterior é a mesma coisa que ativo e o !anterior é o novo valor do setAtivo
+  }
+
+  return (
+    <button onClick={handleClick}>
+      {ativo ? "Está Ativo" : "Está Inativo"}
+    </button>
+  );
+};
+
+// exemplo 2:
+const App8 = () => {
+  const listaFrutas = ["banana", "uva"];
+  const [frutas, setFrutas] = React.useState(listaFrutas);
+
+  function handleClick() {
+    setFrutas((anterior) => {
+      return [...frutas, "maçã"];
+    });
+  }
+  console.log(frutas);
+
+  return (
+    <>
+      <div>Testando uso de reatividade</div>
+      <button onClick={handleClick}>atualiza</button>
+      <div>
+        {frutas.map((fruta) => {
+          return <div key={fruta}>{fruta}</div>;
+        })}
+      </div>
+    </>
+  );
+};
+//-----------------------------------------------------------------------------
+
+// - React.StrictMode
+//O modo estrito invoca duas vezes a renderização do componente, quando o estado é atualizado (no modo dev, depois que monta a build não). Assim é possível identificarmos funções com efeitos coláterais (side effects)/bugs e eliminarmos as mesmas.
+
+//efeito colateral é por exemplo: temos uma let valor = 0 e uma função que acrescenta 1, no valor e em uma li toda vez que clicar no botão. Um efeito colateral seria clicar no botão e adicionar 2 na li por exemplo, isso aconteceria caso tivesse usando o modo estrito porque renderizaria duas vezes a função e acrescentaria duas vezes o valor. Qual a solução? tirar o modo estrito. Errado. o modo estrito serve justamente pra isso, porque se acrescentou 2 na li ao inves de 1 só é porque o código está errado, e o modo estrito previne isso para não ter bugs lá na frente. Logo, se algo duplicar é por conta do modo estrito dizendo que o que duplicou está errado no codigo, entao tem que reescrever de forma que não duplique.
+
+//Funções com efeitos coláterais são aquelas que modificam estados que estão fora das mesmas.
+
+//exemplo com modo estrito tendo efeito colateral:
+const Contador = () => {
+  const [contar, setContar] = React.useState(1);
+  const [items, setItems] = React.useState(["Item 1"]);
+
+  function handleClick() {
+    setContar((contar) => {
+      // setContar possui um efeito colateral.
+      setItems((items) => [...items, "Item " + (contar + 1)]); //ativa o set duas vezes seguidas
+      return contar + 1;
+    });
+    // Tirar o efeito de dentro do setContar irá concertar o erro
+    // setItems((items) => [...items, 'Item ' + (contar + 1)]);
+  }
+
+  return (
+    <>
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+      <button onClick={handleClick}>{contar}</button>
+    </>
+  );
+};
+
+//exemplo com modo estrito sem efeito colateral:
+const Contador2 = () => {
+  const [contar, setContar] = React.useState(1);
+  const [items, setItems] = React.useState(["Item 1"]);
+
+  function handleClick() {
+    setContar((contar) => {
+      return contar + 1;
+    });
+    setItems((items) => [...items, "Item " + (contar + 1)]); //set fora do handle, não gera o efeito colateral
+  }
+
+  return (
+    <>
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+      <button onClick={handleClick}>{contar}</button>
+    </>
+  );
+};
