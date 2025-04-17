@@ -13,6 +13,19 @@ const App = () => {
     </section>
   );
 };
+
+//exemplo 2:
+function Saudacao(props) {
+  return <h2>Olá, {props.nome}</h2>;
+}
+
+const AppSaudacao = () => {
+  return (
+    <>
+      <Saudacao nome="maria" /> //<h2>Olá, maria!</h2>
+    </>
+  );
+};
 //---------------------------------------------------------
 
 // - Múltiplas Propriedades
