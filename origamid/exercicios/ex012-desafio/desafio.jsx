@@ -7,5 +7,6 @@ const produtos = [
   { nome: "Notebook", propriedades: ["16gb ram", "512gb"] },
   { nome: "Smartphone", propriedades: ["2gb ram", "128gb"] },
 ];
-
 console.log(produtos);
+
+//solução do professor: https://www.origamid.com/slide/react-completo/#/3
