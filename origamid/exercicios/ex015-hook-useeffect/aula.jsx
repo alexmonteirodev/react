@@ -1,4 +1,7 @@
 // - useEffect
+
+//resumindo: O que ele faz é executar algum código depois da renderização, ou seja, atualizar informações online de state sem ter que dar refresh e se esse código mudar algum state (useState), aí sim da pra usar o useState pra renderizar isso. Serve para mudar o state online sem precisar dar refresh de acroodo com a condição que eu passar no segundo argumento
+
 // Todo componente possui um ciclo de vida. Os principais momentos acontecem quando o componente é renderizado, atualizado ou destruído. Com o React.useEffect() podemos definir um callback que irá ser executado durante certos momentos do ciclo de vida do componente.
 
 // useEffect tem dois parametros:
