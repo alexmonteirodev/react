@@ -108,6 +108,7 @@ const App4 = () => {
     <form onSubmit={handleSubmit}>
       <label htmlFor="nome">Nome</label>
       <input type="text" id="nome" value={form.nome} onChange={handleChange} />
+
       <label htmlFor="email">Email</label>
       <input
         type="email"
@@ -115,6 +116,7 @@ const App4 = () => {
         value={form.email}
         onChange={handleChange}
       />
+
       <button>Enviar</button>
     </form>
   );
