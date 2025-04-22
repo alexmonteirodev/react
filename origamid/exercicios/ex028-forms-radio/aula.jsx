@@ -1,38 +1,117 @@
-// - Select
-//lembrar que select é aquele input que tem uma lista de itens dentro dele.
-// O value e onChange são definidos no select. Para definir um valor inicial, coloque o mesmo no useState.
+// - Radio
+//obs: não é a tag radio e sim um input com o type radio.
+//deve se atentar ao estado do que está checkado pq isso que importa na reatividade, não os valores, pois eles são estáveis, ou seja, notebook, tablet, vão ser sempre eles, mas o que for checkado não.
+//No radio comparamos o valor selecionado com o valor do input, dentro do atributo checked. O que retornar true irá marcar o botão.
 const App = () => {
-  const [select, setSelect] = React.useState("");
+  const [radio, setRadio] = React.useState("");
+
+  function handleChange({ target }) {
+    setRadio(target.value);
+  }
 
   return (
     <form>
-      <select value={select} onChange={({ target }) => setSelect(target.value)}>
-        <option disabled value="">
-          Selecione
-        </option>
-        <option value="notebook">Notebook</option>
-        <option value="smartphone">Smartphone</option>
-        <option value="tablet">Tablet</option>
-      </select>
-      <p>{select}</p>
+      <label>
+        <input
+          type="radio"
+          value="notebook"
+          checked={radio === "notebook"}
+          onChange={handleChange}
+        />
+        Notebook
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          value="smartphone"
+          checked={radio === "smartphone"}
+          onChange={handleChange}
+        />
+        Smartphone
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          value="tablet"
+          checked={radio === "tablet"}
+          onChange={handleChange}
+        />
+        Tablet
+      </label>
     </form>
   );
 };
+// como o input tem que estar dentro label para ficar um item ao lado do outro, nao precisa do for, poruqe assim, ao clicar no label, ja seleciona o input.
+//no momento, o form permite checar as 3 opções, pq elas não fazem parte de um crupo, para dar apenas uma opção de check, tem que ser de um grupo e pra definir o grupo existem duas formas:
 
-// <option disabled value="">Selecione</option> serve para dar match com o valor do select do useState inicial, porque caso essa opcao nao existisse, teria que rescrever manualmente um valor inicial, ex:
+//  1 - basta por todas com o atributo name e o mesmo nome pras 3:
 
-const App2 = () => {
-  const [select, setSelect] = React.useState("notebook");
+<form>
+  <label>
+    <input
+      type="radio"
+      value="notebook"
+      name="produto"
+      checked={radio === "notebook"}
+      onChange={handleChange}
+    />
+    Notebook
+  </label>
 
-  return (
-    <form>
-      <select value={select} onChange={({ target }) => setSelect(target.value)}>
-        <option value="notebook">Notebook</option>
-        <option value="smartphone">Smartphone</option>
-        <option value="tablet">Tablet</option>
-      </select>
-      <p>{select}</p>
-    </form>
-  );
-};
-//assim, ja teria o item notebook selecionado, porque caso estivesse com React.useState(""); sem nada no valor, no form estaria selecionado o notebook mas no useState nao teria nada, vou seja, pro usuario parece que esta selecionado mas o react nao capta nada, pq a string estaria vazia. POr isso usar o <option disabled value="">Selecione</option>, e o disabled pra dizer que não tem nenhum valor selecionado.
+  <label>
+    <input
+      type="radio"
+      value="smartphone"
+      name="produto"
+      checked={radio === "smartphone"}
+      onChange={handleChange}
+    />
+    Smartphone
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      value="tablet"
+      name="produto"
+      checked={radio === "tablet"}
+      onChange={handleChange}
+    />
+    Tablet
+  </label>
+</form>;
+
+//  2 - conferindo se o valor bate com o setRadio: checked={radio === "notebook"}:
+<form>
+  <label>
+    <input
+      type="radio"
+      value="notebook"
+      checked={radio === "notebook"}
+      onChange={handleChange}
+    />
+    Notebook
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      value="smartphone"
+      checked={radio === "smartphone"}
+      onChange={handleChange}
+    />
+    Smartphone
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      value="tablet"
+      checked={radio === "tablet"}
+      onChange={handleChange}
+    />
+    Tablet
+  </label>
+</form>;
