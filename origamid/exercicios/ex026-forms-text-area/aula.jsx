@@ -9,7 +9,7 @@ const App = () => {
         id="mensagem"
         value={mensagem}
         rows="5" //escolhe quantidade de linhas
-        onChange={({ target }) => setMensagem(target.value)}
+        onChange={({ target }) => setMensagem(target.value)} //target = event desestruturado
       />
       <p>{mensagem}</p>
     </form>
