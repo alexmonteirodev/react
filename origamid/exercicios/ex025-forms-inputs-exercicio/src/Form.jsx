@@ -11,9 +11,48 @@ const Form = () => {
   const [bairro, setBairro] = React.useState("");
   const [cidade, setCidade] = React.useState("");
   const [estado, setEstado] = React.useState("");
+  const [feedback, setFeedback] = React.useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(e);
+    console.log(e.target);
+    const form = {
+      nome: e.target[0].value,
+      email: e.target[1].value,
+      senha: e.target[2].value,
+      cep: e.target[3].value,
+      rua: e.target[4].value,
+      numero: e.target[5].value,
+      bairro: e.target[6].value,
+      cidade: e.target[7].value,
+      estado: e.target[8].value,
+    };
+    console.log(form);
+
+    fetch("https://ranekapi.origamid.dev/json/api/usuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    })
+      .then((r) => {
+        if (!r.ok) {
+          console.log("deu erro");
+          return;
+        } else {
+          return r.json();
+        }
+      })
+      .then((r) => {
+        setFeedback(true);
+        console.log(r);
+      });
+  }
 
   return (
-    <form action="">
+    <form action="" onSubmit={handleSubmit}>
       <label htmlFor="nome">Nome:</label>
       <input
         value={nome}
@@ -94,6 +133,8 @@ const Form = () => {
         onChange={(event) => setEstado(event.target.value)}
       />
       <p>{estado}</p>
+
+      {feedback && feedback.ok ? <p>enviado corretamente</p> : <p></p>}
 
       <button>Enviar</button>
     </form>
