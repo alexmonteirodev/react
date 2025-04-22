@@ -1,4 +1,5 @@
 // - Radio
+//lembrando: radio é a marcação por bolinha
 //obs: não é a tag radio e sim um input com o type radio.
 //deve se atentar ao estado do que está checkado pq isso que importa na reatividade, não os valores, pois eles são estáveis, ou seja, notebook, tablet, vão ser sempre eles, mas o que for checkado não.
 //No radio comparamos o valor selecionado com o valor do input, dentro do atributo checked. O que retornar true irá marcar o botão.
