@@ -1,0 +1,33 @@
+form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(69, 67, 67, 0.226);
+  padding: 20px;
+  font-size: 1.2rem;
+  margin: 20px 40px;
+}
+h1 {
+  font-size: 1.5rem;
+}
+label {
+  display: flex;
+  align-content: center;
+  padding: 10px;
+}
+
+button {
+  width: 150px;
+  height: 50px;
+  margin-top: 50px;
+  font-size: 1.2rem;
+  border: 4px solid #0e9aff;
+  background-color: #0e9aff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  border: 4px solid #068beabe;
+}
+p {
+  color: rgba(165, 14, 14, 0.61);
+}
