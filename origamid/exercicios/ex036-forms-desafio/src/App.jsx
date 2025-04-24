@@ -1,108 +1,100 @@
 import React from "react";
+import Radio from "./Radio";
 import "./style.css";
 
-const App = () => {
-  const perguntas = [
-    {
-      pergunta: "Qual método é utilizado para criar componentes?",
-      options: [
-        "React.makeComponent()",
-        "React.createComponent()",
-        "React.createElement()",
-      ],
-      resposta: "React.createElement()",
-      id: "p1",
-    },
-    {
-      pergunta: "Como importamos um componente externo?",
-      options: [
-        'import Component from "./Component"',
-        'require("./Component")',
-        'import "./Component"',
-      ],
-      resposta: 'import Component from "./Component"',
-      id: "p2",
-    },
-    {
-      pergunta: "Qual hook não é nativo?",
-      options: ["useEffect()", "useFetch()", "useCallback()"],
-      resposta: "useFetch()",
-      id: "p3",
-    },
-    {
-      pergunta: "Qual palavra deve ser utilizada para criarmos um hook?",
-      options: ["set", "get", "use"],
-      resposta: "use",
-      id: "p4",
-    },
-  ];
+const perguntas = [
+  {
+    pergunta: "Qual método é utilizado para criar componentes?",
+    options: [
+      "React.makeComponent()",
+      "React.createComponent()",
+      "React.createElement()",
+    ],
+    resposta: "React.createElement()",
+    id: "p1",
+  },
+  {
+    pergunta: "Como importamos um componente externo?",
+    options: [
+      'import Component from "./Component"',
+      'require("./Component")',
+      'import "./Component"',
+    ],
+    resposta: 'import Component from "./Component"',
+    id: "p2",
+  },
+  {
+    pergunta: "Qual hook não é nativo?",
+    options: ["useEffect()", "useFetch()", "useCallback()"],
+    resposta: "useFetch()",
+    id: "p3",
+  },
+  {
+    pergunta: "Qual palavra deve ser utilizada para criarmos um hook?",
+    options: ["set", "get", "use"],
+    resposta: "use",
+    id: "p4",
+  },
+];
 
-  const [pergunta, setPergunta] = React.useState(0);
-  const [respostaAtual, setRespostaAtual] = React.useState("");
-  const [respostaArr, setRespostaArr] = React.useState([]);
-  const [error, setError] = React.useState(false);
+const App = () => {
+  // - states
+  //setar respostas
+  const [respostas, setRespostas] = React.useState({
+    p1: "",
+    p2: "",
+    p3: "",
+    p4: "",
+  });
+
+  //setar index do slide ativo no momento
+  const [slide, setSlide] = React.useState(0);
+
+  //setar resultado
   const [resultado, setResultado] = React.useState(null);
 
-  function handleClick(e) {
-    e.preventDefault();
-
-    //seta o erro se a opção está selecionada antes de prosseguir
-    if (!respostaAtual) {
-      setError(true);
-      return;
-    }
-
-    //passa para próxima pergunta
-    setPergunta(pergunta + 1);
-
-    //captura resposta e salva na array resposta
-    setRespostaArr([...respostaArr, respostaAtual]);
+  // - functions
+  //f que atualiza resposta checkada
+  function handleChange({ target }) {
+    setRespostas({ ...respostas, [target.id]: target.value });
   }
 
-  //calcula resultado
-  const resultadosArr = perguntas.map((results) => {
-    return results.resposta;
-  });
-  if (pergunta >= perguntas.length) {
-    const acertos = respostaArr.filter(
-      (resposta, index) => resposta === resultadosArr[index]
+  //f calcula resutado
+  function resultadoFinal() {
+    console.log("final");
+    const corretas = perguntas.filter(
+      ({ id, resposta }) => respostas[id] === resposta
     );
-    const resultado = acertos.length;
-    setResultado(resultado);
+    setResultado(`Você acertou ${corretas.length} de ${perguntas.length}.`);
   }
 
-  const perguntaAtual = perguntas[pergunta];
-  return (
-    <>
-      <form action="">
-        <h1>{perguntaAtual.pergunta}</h1>
-        {perguntaAtual.options.map((option, index) => (
-          <label key={index}>
-            <input
-              type="radio"
-              name="option"
-              value={option}
-              onChange={({ target }) => {
-                setRespostaAtual(target.value);
-                setError(false);
-              }}
-              checked={respostaAtual === option}
-            />
-            {option}
-          </label>
-        ))}
-        {error ? (
-          <p>Você deve preencher todos os campos antes de continuar.</p>
-        ) : (
-          ""
-        )}
-        <button onClick={handleClick}>Próxima</button>
-      </form>
+  //f que controla index dos slides das perguntas
+  function handleClick() {
+    if (slide < perguntas.length - 1) {
+      setSlide(slide + 1);
+    } else {
+      setSlide(slide + 1);
+      resultadoFinal(); //verifica resultado porque chegou no final do questionario (else)
+    }
+  }
 
-      {resultado !== null && pergunta >= perguntas.length && (
-        <h2>Resultado: {resultado}</h2>
+  return (
+    <form onSubmit={(e) => e.preventDefault()}>
+      {perguntas.map((pergunta, index) => (
+        <Radio
+          active={slide === index}
+          key={pergunta.id}
+          onChange={handleChange}
+          value={respostas[pergunta.id]}
+          {...pergunta}
+        />
+      ))}
+      {resultado ? (
+        <h2>{resultado}</h2>
+      ) : (
+        <button onClick={handleClick}>Próxima</button>
       )}
-    </>
+    </form>
   );
 };
 

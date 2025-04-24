@@ -7,9 +7,3 @@ createRoot(document.getElementById("root")).render(
   <App />
   // </React.StrictMode>
 );
-
-//questões para resolver.
-
-// 1 - da pra dar proxima sem responder
-
-// 2 - mostrar resultado no fim
