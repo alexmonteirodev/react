@@ -5,6 +5,7 @@ import Sobre from "./Sobre.jsx";
 import Header from "./Header.jsx";
 import NaoEcontrada from "./NaoEcontrada.jsx";
 import Login from "./Login.jsx";
+import Produto from "./Produto.jsx";
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="sobre" element={<Sobre />} />
         <Route path="login" element={<Login />} />
-
+        <Route path="produto/:id" element={<Produto />} />
         <Route path="*" element={<NaoEcontrada />} />
       </Routes>
     </BrowserRouter>
