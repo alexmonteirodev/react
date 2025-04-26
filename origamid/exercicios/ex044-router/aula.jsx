@@ -32,6 +32,7 @@ const App = () => {
 };
 //obs: olhar no exempo criado no app do react.
 
+
 // - 404 - Não Encontrado
 // O * renderiza um elemento para todas as rotas que não foram definidas em path. Uso ideal para mostrarmos um componente indicando que a página não existe.
 
@@ -48,5 +49,76 @@ const App = () => {
         <Route path="*" element={<Pagina404 />} />
       </Routes>
     </BrowserRouter>
+  );
+};
+//------------------------------------------------------------
+
+// - Link
+// O Link irá modificar a rota e renderizar o novo componente sem recarregar a página.
+
+import { Link } from "react-router-dom";
+
+const Header = () => {
+  return (
+    <nav>
+      <Link to="/">Home</Link>
+      <Link to="sobre">Sobre</Link>
+      <Link to="contato">Contato</Link>
+    </nav>
+  );
+};
+
+
+// - NavLink
+// O NavLink funciona da mesma forma, mas adiciona uma classe ao link que estiver ativo. É necessário colocar o end no NavLink responsável por navegar para a raiz do app.
+import "./Header.css";
+import { NavLink } from "react-router-dom";
+
+const Header = () => {
+  const activeStyle = {
+    color: "tomato",
+  };
+  return (
+    <nav>
+      <NavLink to="/" end activeStyle={activeStyle}>
+        Home
+      </NavLink>
+      <NavLink to="sobre" activeStyle={activeStyle}>
+        Sobre
+      </NavLink>
+      <NavLink to="contato" activeStyle={activeStyle}>
+        Contato
+      </NavLink>
+    </nav>
+  );
+};
+
+// como o navlink add uma class active para a pagina que está ativa no momento da pra add um css pra isso, usando o css normal ou adicionando inline
+.active{
+    color: red
+}
+//ou
+<NavLink to="/" end activeStyle={{color:'red'}}>
+Home
+</NavLink>
+// assim não precisaria importar o css. também da pra importar como o exemplo acima: activeStyle={activeStyle}
+
+
+// - useNavigate
+// O hook useNavigate permite navegarmos programaticamente entre as rotas. Por exemplo, pode ser utilizado quando o usuário faz um login bem sucedido e enviamos o mesmo a página da sua conta.
+import { useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    console.log('Faz o login');
+    navigate('/sobre');
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Login</button>
+    </div>
   );
 };
