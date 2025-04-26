@@ -102,6 +102,7 @@ const Header = () => {
 Home
 </NavLink>
 // assim não precisaria importar o css. também da pra importar como o exemplo acima: activeStyle={activeStyle}
+//------------------------------------------------------------
 
 
 // - useNavigate
@@ -177,4 +178,137 @@ const Header = () => {
   }, [location]); //ocorre sempre que o location for alterado
 
   return <div></div>;
+};
+//------------------------------------------------------------
+
+
+// - Nested Routes
+// Utilizamos nested routes quando precisamos de rotas dentro de rotas. Como por exemplo: perfil/editar e perfil/certificados e etc. Utilize o \* para definir que existem outras rotas dentro.
+//obs: exemplo no app react usando produto - customizado; avaliação; descrição
+// tem duas maneiras de fazer isso, pode ser na pasta produto e definir as rotas aninhadas ou direto no App. (as duas são corretas, é só uma questão de preferência)
+
+// App.jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import Sobre from './Sobre';
+import Login from './Login';
+import Produto from './Produto';
+import Header from './Header';
+import NaoEncontrada from './NaoEncontrada';
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="sobre" element={<Sobre />} />
+        <Route path="login" element={<Login />} />
+        <Route path="produto/:id/*" element={<Produto />} />
+        <Route path="*" element={<NaoEncontrada />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+// Produto.jsx
+//aninhanda na pasta produto
+import { useParams, Route, Routes, NavLink } from 'react-router-dom';
+import ProdutoDescricao from './ProdutoDescricao';
+import ProdutoAvaliacao from './ProdutoAvaliacao';
+import ProdutoCustomizado from './ProdutoCustomizado';
+
+const Produto = () => {
+  const params = useParams();
+
+  return (
+    <div>
+      <h1>Produto: {params.id}</h1>
+      <nav>
+        <NavLink to="">Descrição</NavLink>
+        <NavLink to="avaliacao">Avaliação</NavLink>
+        <NavLink to="customizado">Customizado</NavLink>
+      </nav>
+      <Routes>
+        <Route path="/" element={<ProdutoDescricao />} />
+        <Route path="avaliacao" element={<ProdutoAvaliacao />} />
+        <Route path="customizado" element={<ProdutoCustomizado />} />
+      </Routes>
+    </div>
+  );
+};
+// ou
+
+//aninhada direto no App (tem que usar o outlet)
+const App = () => {
+    return (
+      <BrowserRouter>
+        <Header />
+        {/* //header geralmente não muda então pode ficar fora das rotas */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="sobre" element={<Sobre />} />
+          <Route path="login" element={<Login />} />
+          <Route path="produto/:id/*" element={<Produto />}>
+            <Route path="" element={<ProdutoDescricao />} />
+            <Route path="avaliacao" element={<ProdutoAvaliacao />} />
+            <Route path="customizado" element={<ProdutoCustomizado />} />
+          </Route>
+          <Route path="*" element={<NaoEcontrada />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  };
+  
+  export default App;
+
+
+// -  Outlet
+// Outra forma é definindo todos as rotas diretamente no App e utilizar o component Outlet para mostrarmos a rota.
+import { Outlet } from "react-router-dom";
+const Produto = () => {
+  const params = useParams();
+
+  return (
+    <div>
+      <h1>Produto: {params.id}</h1>
+      <nav>
+        <NavLink to="">Descrição</NavLink>
+        <NavLink to="avaliacao">Avaliação</NavLink>
+        <NavLink to="customizado">Customizado</NavLink>
+      </nav>
+      <Outlet />
+    </div>
+  );
+};
+
+// App.jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import Sobre from './Sobre';
+import Login from './Login';
+import Produto from './Produto';
+import Header from './Header';
+import NaoEncontrada from './NaoEncontrada';
+import ProdutoDescricao from './ProdutoDescricao';
+import ProdutoAvaliacao from './ProdutoAvaliacao';
+import ProdutoCustomizado from './ProdutoCustomizado';
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="sobre" element={<Sobre />} />
+        <Route path="login" element={<Login />} />
+        <Route path="produto/:id" element={<Produto />}> {/* repare que assim não precisa do /* */}
+          <Route path="/" element={<ProdutoDescricao />} />
+          <Route path="avaliacao" element={<ProdutoAvaliacao />} />
+          <Route path="customizado" element={<ProdutoCustomizado />} />
+        </Route>
+        <Route path="*" element={<NaoEncontrada />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
