@@ -312,3 +312,72 @@ const App = () => {
     </BrowserRouter>
   );
 };
+//------------------------------------------------------------
+
+// - Head
+// tudo que criamos no react estamos adicionando na div do App que direto ligada ao body do 'index' o que nos deixa sem acesso ao head por exemplo.
+// No React não temos acesso direto as tags e informações do Head. Porém com o uso de rotas é essêncial realizar a mudança do título e descrição para cada rota. Podemos fazer isso através de um componente ou custom hook.
+// exemplo no head.jsx
+
+// Head.js
+const Head = (props) => {
+  React.useEffect(() => {
+    document.title = props.title;
+    document
+      .querySelector("meta[name='description']")
+      .setAttribute('content', props.description);
+  }, [props]);
+
+  return <></>;
+};
+
+// Sobre.js
+import Head from './Head';
+
+const Sobre = () => {
+  return (
+    <div>
+      <Head title="Página Sobre" description="Descrição da sobre" />
+      <h1>Sobre</h1>
+      <p>Essa é a Sobre</p>
+    </div>
+  );
+};
+
+// Home.js
+import Head from './Head';
+
+const Home = () => {
+  return (
+    <div>
+      <Head title="Página Home" description="Descrição da home" />
+      <h1>Home</h1>
+      <p>Essa é a home</p>
+    </div>
+  );
+};
+
+// - Helmet (outra forma de fazermos o que fizemos acima, porém com um pluguin chamado helmet)
+// Uma extensão famosa é o react-helmet. ë um plugin mto utilizado tbm que ao invez de selecionarmos com querySelector como fizemdos, podemos instalar: npm install react-helmet e depois importar: import {helmet} from 'react-helmet' e só usar no componente como se fosse um header de html.
+
+//obs: não aconselhavel usar o helmet pq pro que usamos da pra fazer na mão usando js como fizemos acima e eles alteram algumas coisas que trazem problemas, como por exemplo ao usar modo estrito, caso a biblioteca externa helmet esteja usando modo estrito vai puxar pro seu codigo e pode dar erro no console, ou outro exemplo é que antes de importava usando apenas import Helmet e agora é import {Helmet}, ai se tivesse uma aplicação robusta já ia ter que ir pagina por pagina alterando o import. Mas se precisar usar ele funciona tranquilo, da pra usar.
+
+// https://github.com/nfl/react-helmet
+
+import React from "react";
+import {Helmet} from "react-helmet";
+
+class Application extends React.Component {
+  render () {
+    return (
+        <div className="application">
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>My Title</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
+            ...
+        </div>
+    );
+  }
+};
