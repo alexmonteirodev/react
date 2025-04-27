@@ -1,9 +1,9 @@
 import React from "react";
 
-const CadaProduto = () => {
+const CadaProduto = ({ produtos }) => {
+  console.log(produtos);
   return (
     <>
-      <h1>Produtos</h1>
       <div className="div-content">
         <img src="" alt="" />
         <div className="div-infos">

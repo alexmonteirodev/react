@@ -1,10 +1,11 @@
 import React from "react";
+import imgContato from "./img/contato.jpg";
 
 const Contato = () => {
   return (
     <>
       <div className="div-contact">
-        {/* <img src="" alt="" /> */}
+        <img className="img-contato" src={imgContato} alt="" />
         <div className="div-infos-contact">
           <h2>Entre em contato.</h2>
           <ul>

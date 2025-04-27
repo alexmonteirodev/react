@@ -65,6 +65,7 @@ nav {
 /* contato */
 .div-contact {
   display: flex;
+  gap: 20px;
   opacity: 0;
   transform: translateX(-20px);
   animation: animaleft 0.3s forwards;
@@ -84,4 +85,40 @@ nav {
 li::marker {
   content: "- ";
   color: #dddddd;
+}
+.img-contato {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* loading */
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+.loading {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #dddddd 60%, white 40%);
+  margin: auto;
+  display: flex;
+  align-items: center;
+  animation: animagiro 1s infinite ease-in-out;
+}
+@keyframes animagiro {
+  to {
+    opacity: initial;
+    transform: rotate(360deg);
+  }
+}
+.inside-loading {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  margin: auto;
 }
