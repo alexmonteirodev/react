@@ -24,4 +24,4 @@
 .link:hover {
   background-color: #ddd;
 }
-/* .header :global(.active) = quero falar com o .active que está dentro do header. global serve pra captar a class active do navlink */
+/* .header :global(.active) = quero falar com o .active que está dentro do header. global serve pra captar a class active do navlink, assim, vai ficar mais escuro/como se estivesse clicado na pagina em que p user estiver usando. */
