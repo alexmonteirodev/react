@@ -1,3 +1,15 @@
+.App {
+  max-width: 40rem;
+  margin: auto;
+
+  /* para não ficar quebrando a tela por conta do scroll e a tela ficar pulando, tem um macete de acrescentar o footer embaixo do body usando flexbox, ordena em coluna e passa a altura do tamanho da tela (100vh) mais o tamanho que quer pro footer e depois da um flex 1 no body */
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh + 10rem);
+}
+.Content {
+  flex: 1;
+}
 body {
   margin: 2rem;
 }
@@ -27,5 +39,22 @@ h1 {
   to {
     opacity: 1;
     transform: translateX(0px);
+  }
+}
+
+/* carregamento style */
+
+.loading {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 10px solid #ccc;
+  border-right-color: transparent;
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(360deg);
   }
 }
